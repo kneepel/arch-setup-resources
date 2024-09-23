@@ -136,7 +136,7 @@ btrfs su cr /mnt/@/var
 btrfs su cr /mnt/@/tmp
 
 ## Disable CoW on subvols we are not taking snapshots of
-chattr +C /mnt/@/boot/grub 
+chattr +C /mnt/@/boot_grub
 chattr +C /mnt/@/home
 chattr +C /mnt/@/root
 chattr +C /mnt/@/srv
