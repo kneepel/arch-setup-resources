@@ -189,6 +189,8 @@ output "It is okay. The script will regenerate the initramfs later in the instal
 
 pacstrap /mnt base base-devel chrony efibootmgr firewalld grub grub-btrfs inotify-tools linux-firmware linux-zen linux-zen-headers nano reflector snapper zram-generator
 
+CPU=$(grep vendor_id /proc/cpuinfo)
+
 if [[ "${CPU}" == *"AuthenticAMD"* ]]; then
     microcode=amd-ucode
 else
