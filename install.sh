@@ -64,7 +64,7 @@ user_password_prompt () {
     fi
 }
 
-hostname_prompt (){
+hostname_prompt () {
     output 'Enter your hostname:'
     read -r hostname
 
@@ -72,6 +72,7 @@ hostname_prompt (){
         output 'You need to enter a hostname.'
         hostname_prompt
     fi
+}
 
 # Set locale/kb layout
 locale=en_US
