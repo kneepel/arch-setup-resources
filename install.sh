@@ -366,7 +366,6 @@ sed -Ei 's/^#(Color)$/\1\nILoveCandy/;s/^#(ParallelDownloads).*/\1 = 10/' /mnt/e
 
 ## Enable services
 systemctl enable chronyd --root=/mnt
-systemctl enable firewalld --root=/mnt
 systemctl enable fstrim.timer --root=/mnt
 systemctl enable grub-btrfsd.service --root=/mnt
 systemctl enable reflector.timer --root=/mnt
