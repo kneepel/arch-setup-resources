@@ -96,7 +96,7 @@ pacman -Sy
 pacman -S --noconfirm curl
 
 ## Wipe the disk
-wipefs --all "${disk}"
+sgdisk --zap-all "${disk}"
 
 ## Creating a new partition scheme.
 output "Creating new partition scheme on ${disk}."
@@ -117,7 +117,7 @@ mkfs.fat -F 32 -s 2 "${ESP}"
 
 ## Formatting the partition as BTRFS.
 output 'Formatting the rootfs as BTRFS.'
-mkfs.btrfs "${BTRFS}"
+mkfs.btrfs -f "${BTRFS}"
 mount "${BTRFS}" /mnt
 
 ## Creating BTRFS subvolumes.
