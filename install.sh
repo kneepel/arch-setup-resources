@@ -330,6 +330,7 @@ arch-chroot /mnt /bin/bash -e <<EOF
 
     # Snapper configuration
     umount /.snapshots
+    sleep 5
     rm -r /.snapshots
     snapper --no-dbus -c root create-config /
     snapper --no-dbus set-config TIMELINE_LIMIT_HOURLY=6
@@ -351,7 +352,7 @@ EOF
 sed -i 's/# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/g' /mnt/etc/sudoers
 
 # Pacman hook for boot image backup
-info_print "Configuring /boot backup when pacman transactions are made."
+output "Configuring /boot backup when pacman transactions are made."
 mkdir /mnt/etc/pacman.d/hooks
 cat > /mnt/etc/pacman.d/hooks/50-bootbackup.hook <<EOF
 [Trigger]
@@ -369,7 +370,7 @@ Exec = /usr/bin/rsync -a --delete /boot /.bootbackup
 EOF
 
 # Pacman eye-candy features.
-info_print "Enabling colours, animations, and parallel downloads for pacman."
+output "Enabling colours, animations, and parallel downloads for pacman."
 sed -Ei 's/^#(Color)$/\1\nILoveCandy/;s/^#(ParallelDownloads).*/\1 = 10/' /mnt/etc/pacman.conf
 
 ## Enable services
@@ -384,7 +385,7 @@ systemctl disable systemd-timesyncd --root=/mnt
 systemctl enable NetworkManager --root=/mnt
 systemctl enable sddm.service --root=/mnt 
 systemctl enable systemd-resolved --root=/mnt
-systemcvl enable sshd --root=/mnt
+systemctl enable sshd --root=/mnt
 
 ## Set umask to 077.
 sed -i 's/^UMASK.*/UMASK 077/g' /mnt/etc/login.defs
