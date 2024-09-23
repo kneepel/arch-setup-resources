@@ -183,7 +183,7 @@ output 'Installing the base system (it may take a while).'
 output "You may see an error when mkinitcpio tries to generate a new initramfs."
 output "It is okay. The script will regenerate the initramfs later in the installation process."
 
-pacstrap /mnt base base-devel chrony efibootmgr firewalld grub grub-btrfs inotify-tools linux-firmware linux-zen linux-zen-headers nano reflector snapper zram-generator
+pacstrap /mnt base base-devel chrony efibootmgr grub grub-btrfs inotify-tools linux-firmware linux-zen linux-zen-headers nano reflector snapper zram-generator
 
 CPU=$(grep vendor_id /proc/cpuinfo)
 
@@ -195,9 +195,9 @@ fi
 
 pacstrap /mnt "${microcode}"
 
-pacstrap /mnt networkmanager
+pacstrap /mnt networkmanager 
 
-pacstrap /mnt plasma-meta sddm konsole kwrite dolphin ark plasma-workspace egl-wayland xdg-desktop-portal-gtk flatpak pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber libpulse gst-plugin-pipewire openssh
+pacstrap /mnt plasma-meta sddm konsole kwrite dolphin ark plasma-workspace egl-wayland xdg-desktop-portal-gtk flatpak pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber libpulse gst-plugin-pipewire bluez openssh
 
 ## Install snap-pac list otherwise we will have problems
 pacstrap /mnt snap-pac
