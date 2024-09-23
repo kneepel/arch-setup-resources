@@ -127,7 +127,8 @@ btrfs su cr /mnt/@
 btrfs su cr /mnt/@/.snapshots
 mkdir -p /mnt/@/.snapshots/1
 btrfs su cr /mnt/@/.snapshots/1/snapshot
-btrfs su cr /mnt/@/boot_grub
+mkdir -p /mnt/@/boot/grub
+btrfs su cr /mnt/@/boot/grub
 btrfs su cr /mnt/@/home
 btrfs su cr /mnt/@/root
 btrfs su cr /mnt/@/srv
@@ -164,9 +165,9 @@ chmod 600 /mnt/@/.snapshots/1/info.xml
 umount /mnt
 output 'Mounting the newly created subvolumes.'
 mount -o ssd,noatime,compress=zstd "${BTRFS}" /mnt
-mkdir -p /mnt/{root,home,.snapshots,srv,tmp,var,opt,boot/grub,usr/local}
+mkdir -p /mnt/{root,home,.snapshots,srv,tmp,var,opt,usr/local}
 
-mount -o ssd,noatime,compress=zstd,nodev,nosuid,noexec,subvol=@/boot_grub "${BTRFS}" /mnt/boot/grub
+mount -o ssd,noatime,compress=zstd,nodev,nosuid,noexec,subvol=@/boot/grub "${BTRFS}" /mnt/boot/grub
 mount -o ssd,noatime,compress=zstd,nodev,nosuid,subvol=@/root "${BTRFS}" /mnt/root
 mount -o ssd,noatime,compress=zstd,nodev,nosuid,subvol=@/home "${BTRFS}" /mnt/home
 mount -o ssd,noatime,compress=zstd,subvol=@/.snapshots "${BTRFS}" /mnt/.snapshots
