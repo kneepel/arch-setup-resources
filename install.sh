@@ -96,7 +96,7 @@ pacman -Sy
 pacman -S --noconfirm curl
 
 ## Wipe the disk
-sgdisk --zap-all "${disk}"
+wipefs --all "${disk}"
 
 ## Creating a new partition scheme.
 output "Creating new partition scheme on ${disk}."
@@ -249,7 +249,7 @@ sed -i 's/rootflags=subvol=${rootsubvol}//g' /mnt/etc/grub.d/10_linux
 sed -i 's/rootflags=subvol=${rootsubvol}//g' /mnt/etc/grub.d/20_linux_xen
 
 #set kernel parameters
-sed -i "s#quiet#root=${BTRFS} intel_iommu=on iommu=pt amdgpu.ppfeaturemask=0xffffffff" /mnt/etc/default/grub
+sed -i "s#quiet#root=${BTRFS} intel_iommu=on iommu=pt amdgpu.ppfeaturemask=0xffffffff#g" /mnt/etc/default/grub
 
 
 ## Setup NTS
@@ -279,11 +279,6 @@ rtcsync
 cmdport 0
 
 noclientlog
-EOF
-
-cat > /mnt/etc/sysconfig/chronyd <<EOF
-# Command-line options for chronyd
-OPTIONS="-F 1"
 EOF
 
 ## ZRAM configuration
