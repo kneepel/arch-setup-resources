@@ -127,7 +127,7 @@ btrfs su cr /mnt/@
 btrfs su cr /mnt/@/.snapshots
 mkdir -p /mnt/@/.snapshots/1
 btrfs su cr /mnt/@/.snapshots/1/snapshot
-mkdir -p /mnt/@/boot/grub
+mkdir -p /mnt/@/boot
 btrfs su cr /mnt/@/boot/grub
 btrfs su cr /mnt/@/home
 btrfs su cr /mnt/@/root
