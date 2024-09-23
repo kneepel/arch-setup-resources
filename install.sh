@@ -172,7 +172,7 @@ mount -o ssd,noatime,compress=zstd,nodev,nosuid,subvol=@/home "${BTRFS}" /mnt/ho
 mount -o ssd,noatime,compress=zstd,subvol=@/.snapshots "${BTRFS}" /mnt/.snapshots
 mount -o ssd,noatime,compress=zstd,subvol=@/srv "${BTRFS}" /mnt/srv
 mount -o ssd,noatime,compress=zstd,subvol=@/tmp "${BTRFS}" /mnt/tmp
-mount -o ssd,noatime,compress=zstd,subvol=@/opt"${BTRFS}" /mnt/opt
+mount -o ssd,noatime,compress=zstd,subvol=@/opt "${BTRFS}" /mnt/opt
 mount -o ssd,noatime,compress=zstd,subvol=@/usr_local "${BTRFS}" /mnt/usr/local
 mount -o ssd,noatime,compress=zstd,nodatacow,nodev,nosuid,noexec,subvol=@/var "${BTRFS}" /mnt/var
 
