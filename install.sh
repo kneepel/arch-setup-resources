@@ -127,25 +127,23 @@ btrfs su cr /mnt/@
 btrfs su cr /mnt/@/.snapshots
 mkdir -p /mnt/@/.snapshots/1
 btrfs su cr /mnt/@/.snapshots/1/snapshot
-mkdir -p /mnt/@/boot/grub
-btrfs su cr /mnt/@/boot/grub
+btrfs su cr /mnt/@/boot_grub
 btrfs su cr /mnt/@/home
 btrfs su cr /mnt/@/root
 btrfs su cr /mnt/@/srv
 btrfs su cr /mnt/@/opt
 btrfs su cr /mnt/@/var
 btrfs su cr /mnt/@/tmp
-mkdir -p /mnt/@/usr/local
-btrfs su cr /mnt/@/usr/local
+btrfs su cr /mnt/@/usr_local
 
 ## Disable CoW on subvols we are not taking snapshots of
-chattr +C /mnt/@/boot/grub
+chattr +C /mnt/@/boot_grub
 chattr +C /mnt/@/home
 chattr +C /mnt/@/root
 chattr +C /mnt/@/srv
 chattr +C /mnt/@/var
 chattr +C /mnt/@/opt
-chattr +C /mnt/@/usr/local
+chattr +C /mnt/@/usr_local
 chattr +C /mnt/@/tmp
 
 ## Set the default BTRFS Subvol to Snapshot 1 before pacstrapping
@@ -166,17 +164,17 @@ chmod 600 /mnt/@/.snapshots/1/info.xml
 umount /mnt
 output 'Mounting the newly created subvolumes.'
 mount -o ssd,noatime,compress=zstd "${BTRFS}" /mnt
-mkdir -p /mnt/{root,home,.snapshots,srv,tmp,var,opt}
+mkdir -p /mnt/{root,home,.snapshots,srv,tmp,var,opt,boot/grub,usr/local}
 
-mount -o ssd,noatime,compress=zstd,nodev,nosuid,noexec,subvol=@/boot "${BTRFS}" /mnt/boot/grub
+mount -o ssd,noatime,compress=zstd,nodev,nosuid,noexec,subvol=@/boot_grub "${BTRFS}" /mnt/boot/grub
 mount -o ssd,noatime,compress=zstd,nodev,nosuid,subvol=@/root "${BTRFS}" /mnt/root
 mount -o ssd,noatime,compress=zstd,nodev,nosuid,subvol=@/home "${BTRFS}" /mnt/home
 mount -o ssd,noatime,compress=zstd,subvol=@/.snapshots "${BTRFS}" /mnt/.snapshots
 mount -o ssd,noatime,compress=zstd,subvol=@/srv "${BTRFS}" /mnt/srv
-mount -o ssd,noatime,compress=zstd,subvol=@/srv "${BTRFS}" /mnt/tmp
-mount -o ssd,noatime,compress=zstd,subvol=@/srv "${BTRFS}" /mnt/opt
-mount -o ssd,noatime,compress=zstd,subvol=@/srv "${BTRFS}" /mnt/usr/local
-mount -o ssd,noatime,compress=zstd,nodatacow,nodev,nosuid,noexec,subvol=@/var_log "${BTRFS}" /mnt/var
+mount -o ssd,noatime,compress=zstd,subvol=@/tmp "${BTRFS}" /mnt/tmp
+mount -o ssd,noatime,compress=zstd,subvol=@/opt"${BTRFS}" /mnt/opt
+mount -o ssd,noatime,compress=zstd,subvol=@/usr_local "${BTRFS}" /mnt/usr/local
+mount -o ssd,noatime,compress=zstd,nodatacow,nodev,nosuid,noexec,subvol=@/var "${BTRFS}" /mnt/var
 
 mkdir -p /mnt/efi
 mount -o nodev,nosuid,noexec "${ESP}" /mnt/efi
