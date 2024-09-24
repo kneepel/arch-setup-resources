@@ -242,7 +242,7 @@ sed -i 's/rootflags=subvol=${rootsubvol}//g' /mnt/etc/grub.d/10_linux
 sed -i 's/rootflags=subvol=${rootsubvol}//g' /mnt/etc/grub.d/20_linux_xen
 
 #set kernel parameters
-sed -i "\,^GRUB_CMDLINE_LINUX=\"\",s,\",&quiet splash root=${BTRFS} intel_iommu=on iommu=pt amdgpu.ppfeaturemask=0xffffffff#g," /mnt/etc/default/grub
+sed -i "s#quiet#root=${BTRFS} quiet splash root=${BTRFS} intel_iommu=on iommu=pt amdgpu.ppfeaturemask=0xffffffff#g" /mnt/etc/default/grub
 
 ## Setup NTS
 cat > /mnt/etc/chrony.conf <<EOF
