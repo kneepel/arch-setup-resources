@@ -20,10 +20,6 @@ output(){
     printf '\e[1;34m%-6s\e[m\n' "${@}"
 }
 
-unpriv(){
-    sudo -u nobody "$@"
-}
-
 installation_date=$(date "+%Y-%m-%d %H:%M:%S")
 
 disk_prompt (){
