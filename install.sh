@@ -246,8 +246,7 @@ sed -i 's/rootflags=subvol=${rootsubvol}//g' /mnt/etc/grub.d/10_linux
 sed -i 's/rootflags=subvol=${rootsubvol}//g' /mnt/etc/grub.d/20_linux_xen
 
 #set kernel parameters
-sed -i "s#quiet#root=${BTRFS} intel_iommu=on iommu=pt amdgpu.ppfeaturemask=0xffffffff#g" /mnt/etc/default/grub
-
+sed -i "\,^GRUB_CMDLINE_LINUX=\"\",s,\",&quiet splash root=${BTRFS} intel_iommu=on iommu=pt amdgpu.ppfeaturemask=0xffffffff#g," /mnt/etc/default/grub
 
 ## Setup NTS
 cat > /mnt/etc/chrony.conf <<EOF
@@ -340,24 +339,6 @@ EOF
 
 ## Give wheel user sudo access.
 sed -i 's/# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/g' /mnt/etc/sudoers
-
-# Pacman hook for boot image backup
-output "Configuring /boot backup when pacman transactions are made."
-mkdir /mnt/etc/pacman.d/hooks
-cat > /mnt/etc/pacman.d/hooks/50-bootbackup.hook <<EOF
-[Trigger]
-Operation = Upgrade
-Operation = Install
-Operation = Remove
-Type = Path
-Target = usr/lib/modules/*/vmlinuz
-
-[Action]
-Depends = rsync
-Description = Backing up /boot...
-When = PostTransaction
-Exec = /usr/bin/rsync -a --delete /boot /.bootbackup
-EOF
 
 # Pacman eye-candy features.
 output "Enabling colours, animations, and parallel downloads for pacman."
