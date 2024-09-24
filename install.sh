@@ -323,7 +323,7 @@ arch-chroot /mnt /bin/bash -e <<EOF
     snapper --no-dbus set-config TIMELINE_LIMIT_WEEKLY=0
     snapper --no-dbus set-config TIMELINE_LIMIT_MONTHLY=0
     snapper --no-dbus set-config TIMELINE_LIMIT_YEARLY=0
-    btrfs subvolume delete /.snapshots
+    btrfs subvolume delete /.snapshots --commit-after
     mkdir /.snapshots
     mount -a
     chmod 750 /.snapshots
