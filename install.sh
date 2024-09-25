@@ -330,8 +330,7 @@ arch-chroot /mnt /bin/bash -e <<EOF
     btrfs subvolume delete /.snapshots --commit-after
     mkdir /.snapshots
     mount -a
-    chmod 750 /.snapshots
-    
+    chmod 750 /.snapshots 
 EOF
 
 ## Set user password.
