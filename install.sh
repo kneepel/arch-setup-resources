@@ -332,9 +332,6 @@ arch-chroot /mnt /bin/bash -e <<EOF
     mount -a
     chmod 750 /.snapshots
     
-    # Delete unwanted subvolumes
-    btrfs subvolume delete /var/lib/portables --commit-after
-    btrfs subvolume delete /var/lib/machines --commit-after
 EOF
 
 ## Set user password.
