@@ -333,7 +333,7 @@ arch-chroot /mnt /bin/bash -e <<EOF
 
     # Remove unwanted subvols and prevent systemd-nspawn from creating them on boot
     btrfs subvolume delete /var/lib/portables --commit-after
-    brtfs subvolume delete /var/lib/machines --commit-after
+    btrfs subvolume delete /var/lib/machines --commit-after
     mkdir /var/lib/portables
     mkdir /var/lib/machines
 EOF
