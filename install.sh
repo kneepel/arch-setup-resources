@@ -161,7 +161,6 @@ umount /mnt
 output 'Mounting the newly created subvolumes.'
 mount -o ssd,noatime,compress=zstd "${BTRFS}" /mnt
 mkdir -p /mnt/{root,home,.snapshots,srv,tmp,var,opt,boot/grub,usr/local}
-mkdir -p /mnt/{var/lib/machines,var/lib/portables} #to prevent unwanted subvolumes made by systemd-nspawn on boot
 
 mount -o ssd,noatime,compress=zstd,nodev,nosuid,noexec,subvol=@/boot_grub "${BTRFS}" /mnt/boot/grub
 mount -o ssd,noatime,compress=zstd,nodev,nosuid,subvol=@/root "${BTRFS}" /mnt/root
@@ -331,6 +330,12 @@ arch-chroot /mnt /bin/bash -e <<EOF
     mkdir /.snapshots
     mount -a
     chmod 750 /.snapshots 
+
+    # Remove unwanted subvols and prevent systemd-nspawn from creating them on boot
+    btrfs subvolume delete /var/lib/portables --commit-after
+    brtfs subvolume delete /var/lib/machines --commit-after
+    mkdir /var/lib/portables
+    mkdir /var/lib/machines
 EOF
 
 ## Set user password.
