@@ -170,7 +170,7 @@ mount -o ssd,noatime,compress=zstd,subvol=@/srv "${BTRFS}" /mnt/srv
 mount -o ssd,noatime,compress=zstd,subvol=@/tmp "${BTRFS}" /mnt/tmp
 mount -o ssd,noatime,compress=zstd,subvol=@/opt "${BTRFS}" /mnt/opt
 mount -o ssd,noatime,compress=zstd,subvol=@/usr_local "${BTRFS}" /mnt/usr/local
-mount -o ssd,noatime,compress=zstd,nodatacow,nodev,nosuid,noexec,subvol=@/var "${BTRFS}" /mnt/var
+mount -o ssd,noatime,compress=zstd,nodatacow,nodev,nosuid,subvol=@/var "${BTRFS}" /mnt/var
 
 mkdir -p /mnt/efi
 mount -o nodev,nosuid,noexec "${ESP}" /mnt/efi
@@ -181,7 +181,7 @@ output 'Installing the base system (it may take a while).'
 output "You may see an error when mkinitcpio tries to generate a new initramfs."
 output "It is okay. The script will regenerate the initramfs later in the installation process."
 
-pacstrap /mnt base base-devel chrony efibootmgr grub grub-btrfs inotify-tools linux-firmware linux-zen linux-zen-headers nano reflector snapper zram-generator
+pacstrap /mnt base base-devel chrony efibootmgr firewalld grub grub-btrfs inotify-tools linux-firmware linux-zen linux-zen-headers nano reflector snapper zram-generator 
 
 CPU=$(grep vendor_id /proc/cpuinfo)
 
