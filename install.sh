@@ -358,6 +358,7 @@ systemctl enable snapper-cleanup.timer --root=/mnt
 systemctl disable systemd-timesyncd --root=/mnt
 systemctl enable NetworkManager --root=/mnt
 systemctl enable firewalld --root=/mnt
+systemctl enable iptables --root=/mnt
 systemctl enable sddm.service --root=/mnt 
 systemctl enable systemd-resolved --root=/mnt
 systemctl enable sshd --root=/mnt
