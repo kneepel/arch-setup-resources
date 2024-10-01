@@ -283,10 +283,25 @@ zram-size = min(ram, 8192)
 EOF
 
 ## Setup Networking
-
 cat > /mnt/etc/NetworkManager/conf.d/01-transient-hostname.conf <<EOF
 [main]
 hostname-mode=none
+EOF
+
+## Enable tmp clearing on boot due to KDE thumbnail bug
+cat > /mnt/etc/tmpfiles.d/tmp.conf <<EOF
+# see tmpfiles.d(5)
+# always enable /tmp directory cleaning
+D! /tmp 1777 root root 0
+
+# remove files in /var/tmp older than 10 days
+D /var/tmp 1777 root root 10d
+
+# namespace mountpoints (PrivateTmp=yes) are excluded from removal
+x /tmp/systemd-private-*
+x /var/tmp/systemd-private-*
+X /tmp/systemd-private-*/tmp
+X /var/tmp/systemd-private-*/tmp
 EOF
 
 ## Configuring the system.
