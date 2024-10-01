@@ -195,7 +195,7 @@ pacstrap /mnt "${microcode}"
 
 pacstrap /mnt networkmanager 
 
-pacstrap /mnt plasma-meta sddm konsole kwrite dolphin ark plasma-workspace egl-wayland xdg-desktop-portal-gtk flatpak pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber libpulse gst-plugin-pipewire bluez openssh
+pacstrap /mnt plasma-meta sddm konsole kwrite dolphin ark plasma-workspace egl-wayland xdg-desktop-portal-gtk flatpak pipewire pipewire-alsa pipewire-pulse pipewire-jack alsa-utils wireplumber libpulse gst-plugin-pipewire bluez openssh
 
 ## Install snap-pac list otherwise we will have problems
 pacstrap /mnt snap-pac
@@ -321,8 +321,8 @@ arch-chroot /mnt /bin/bash -e <<EOF
     chmod 600 /boot/initramfs-linux*
     mkinitcpio -P
 
-    # Installing GRUB
-    grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB --disable-shim-lock
+    # Installing GRUB - removable flag set due to nvram bug on MSI motherboard
+    grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB --disable-shim-lock --removable 
 
     # Creating grub config file
     grub-mkconfig -o /boot/grub/grub.cfg
