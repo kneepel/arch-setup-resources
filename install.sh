@@ -370,7 +370,7 @@ systemctl disable systemd-timesyncd --root=/mnt
 systemctl enable NetworkManager --root=/mnt
 systemctl enable firewalld --root=/mnt
 systemctl enable iptables --root=/mnt
-systemctl enable systemd-resolved --root=/mnt
+systemctl disable systemd-resolved --root=/mnt
 systemctl enable sshd --root=/mnt
 
 
